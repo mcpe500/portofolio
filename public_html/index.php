@@ -6,8 +6,8 @@
 
 // Enable error reporting for development (disable in production)
 error_reporting(E_ALL);
-ini_set("display_errors", 0); // Set to 0 in production
-ini_set("log_errors", 1);
+// ini_set("display_errors", 0); // Set to 0 in production
+// ini_set("log_errors", 1);
 
 // Security headers
 header("X-Frame-Options: SAMEORIGIN");
@@ -34,6 +34,7 @@ $routes = [
     "projects" => "projects.php",
     "skills" => "skills.php",
     "about" => "about.php",
+    "education" => "education.php",
     "resume" => "resume.php",
     "contact" => "contact.php",
 ];
@@ -67,9 +68,7 @@ $page_title =
             require "pages/home.php";
         } ?>
 
-        <?php
-// require __DIR__ . '/components/footer.php';
-?>
+        <?php require __DIR__ . "/components/footer.php"; ?>
     </div>
 
     <script>

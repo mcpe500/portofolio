@@ -19,8 +19,8 @@ return [
         ["label" => "Experience", "url" => "/experience", "type" => "link"],
         ["label" => "Projects", "url" => "/projects", "type" => "link"],
         ["label" => "Skills", "url" => "/skills", "type" => "link"],
+        ["label" => "Education", "url" => "/education", "type" => "link"],
         ["label" => "About", "url" => "/about", "type" => "link"],
-        ["label" => "Resume", "url" => "/resume", "type" => "link"],
         ["label" => "Contact", "url" => "/contact", "type" => "button"],
     ],
 
@@ -437,6 +437,77 @@ return [
             "category" => "Web Dev",
             "skills" => ["JavaScript", "Data Structures", "Algorithms"],
             "url" => "#",
+        ],
+    ],
+    "education" => [
+        "institution" => "Sekolah Tinggi Teknik Surabaya",
+        "degree" => "Bachelor of Technology in Informatics",
+        "period" => "Aug 2022 - Aug 2026 (Expected)",
+        "gpa" => "3.8/4.0",
+        "achievements" => [
+            'Dean\'s List for Academic Excellence (2023, 2024)',
+            "Maintained a strong academic record with a GPA of 3.8/4.0",
+            'Lead Developer for final year project on "AI-Powered Recommendation Engine"',
+            'Consistently featured on the Dean\'s List for academic excellence',
+        ],
+        "semesters" => [
+            [
+                "number" => 1,
+                "name" => "Introduction to Programming",
+                "courses" => ["HTML/CSS/JavaScript", "C++"],
+                "description" =>
+                    "Foundation in web technologies and object-oriented programming with C++.",
+            ],
+            [
+                "number" => 2,
+                "name" => "Database & Object-Oriented Programming",
+                "courses" => ["Java", "MySQL"],
+                "description" =>
+                    "Core Java programming and relational database management.",
+            ],
+            [
+                "number" => 3,
+                "name" => "Web Frameworks & Mobile Basics",
+                "courses" => ["C#", "PHP Laravel"],
+                "description" =>
+                    "Backend development with C# and modern PHP frameworks.",
+            ],
+            [
+                "number" => 4,
+                "name" => "Advanced Web & Systems",
+                "courses" => [
+                    "Node.js/Express.js",
+                    "Three.js",
+                    "Digital Systems (https://github.com/hneemann/Digital)",
+                ],
+                "description" =>
+                    "Full-stack JavaScript, 3D graphics, and digital logic simulation.",
+            ],
+            [
+                "number" => 5,
+                "name" => "Full-Stack Development",
+                "courses" => [
+                    "React.js + Express.js Fullstack",
+                    "Nest.js (Backend) with EJS Admin Panel",
+                    "Next.js Frontend (React TSX + tRPC hitting NestJS backend)",
+                ],
+                "description" =>
+                    "Enterprise-level full-stack architecture with TypeScript and modern frameworks.",
+            ],
+            [
+                "number" => 6,
+                "name" => "Mobile & IoT",
+                "courses" => ["Kotlin", "IoT with Kotlin Android", "ESP32"],
+                "description" =>
+                    "Mobile development and Internet of Things integration.",
+            ],
+            [
+                "number" => 7,
+                "name" => "Cross-Platform Development (Current)",
+                "courses" => ["Flutter Multiplatform"],
+                "description" =>
+                    "Building cross-platform mobile applications with a single codebase.",
+            ],
         ],
     ],
 ];
