@@ -1,0 +1,442 @@
+<?php
+/**
+ * Site Configuration
+ * Centralized data for maintainability
+ */
+
+return [
+    "site" => [
+        "name" => "Ivan Santoso",
+        "title" => "Ivan Santoso - Personal Portfolio",
+        "author" => "Ivan Santoso",
+        "description" =>
+            "Computer Science Student & Aspiring Software Developer",
+        "bio" =>
+            "As a computer science student at Institut Sains dan Teknologi Terpadu Surabaya, I have developed a deep interest in programming and its potential to shape the future. My passion lies in developing innovative solutions that solve real-world problems and create meaningful change.",
+    ],
+
+    "navigation" => [
+        ["label" => "Experience", "url" => "/experience", "type" => "link"],
+        ["label" => "Projects", "url" => "/projects", "type" => "link"],
+        ["label" => "Skills", "url" => "/skills", "type" => "link"],
+        ["label" => "About", "url" => "/about", "type" => "link"],
+        ["label" => "Resume", "url" => "/resume", "type" => "link"],
+        ["label" => "Contact", "url" => "/contact", "type" => "button"],
+    ],
+
+    "social_links" => [
+        [
+            "label" => "GitHub",
+            "icon" => "code_blocks",
+            "url" => "#",
+            "title" => "View my GitHub profile",
+        ],
+        [
+            "label" => "LinkedIn",
+            "icon" => "business_center",
+            "url" => "#",
+            "title" => "Connect on LinkedIn",
+        ],
+        [
+            "label" => "Email",
+            "icon" => "mail",
+            "url" => "#",
+            "title" => "Send me an email",
+        ],
+    ],
+
+    "experience" => [
+        [
+            "title" => "Software Engineer Internship",
+            "company" => "PT HM Sampoerna Tbk. (Philip Morris International)",
+            "date" => "Feb 2025 - Present · 10 mos",
+            "location" => "Surabaya, East Java, Indonesia · On-site",
+            "description" => [
+                "Developing and maintaining enterprise-level internal applications",
+                "Participating in Agile development lifecycle and code reviews",
+                "Writing unit tests to maintain high-quality code standards",
+            ],
+            "skills" => [
+                "Agile",
+                "Unit Testing",
+                "Node.js",
+                "PHP",
+                "Laravel",
+                "Python",
+                "AWS",
+                "Linux",
+                "Docker",
+            ],
+        ],
+        [
+            "title" => "Assistant Lecturer",
+            "company" =>
+                "Institut Sains dan Teknologi Terpadu Surabaya (iSTTS)",
+            "date" => "Mar 2023 - Feb 2025 · 2 yrs",
+            "location" => "Surabaya",
+            "description" => [
+                "Mentored over 50 students in fundamental programming concepts",
+                "Prepared and delivered tutorial sessions for complex topics",
+                "Assisted in grading assignments and providing constructive feedback",
+            ],
+            "skills" => [
+                "C++",
+                "Java",
+                "Python",
+                "Teaching",
+                "Mentorship",
+                "Curriculum Development",
+            ],
+        ],
+        [
+            "title" => "Classroom Assistant",
+            "company" =>
+                "Institut Sains dan Teknologi Terpadu Surabaya (iSTTS)",
+            "date" => "Sep 2024 - Jan 2025 · 5 mos",
+            "location" => "Kota Surabaya, East Java, Indonesia",
+            "description" => ["Taught algorithm concepts to students."],
+            "skills" => ["Algorithms", "Teaching"],
+        ],
+        [
+            "title" => "Frontend Developer",
+            "company" => "EClub Indonesia · Freelance",
+            "date" => "Sep 2024 - Dec 2024 · 4 mos",
+            "location" => "Indonesia · Remote",
+            "description" => [
+                "Developed responsive web interfaces for client projects",
+                "Collaborated with design team to implement UI/UX improvements",
+                "Optimized web performance and cross-browser compatibility",
+            ],
+            "skills" => [
+                "Next.js",
+                "React.js",
+                "tRPC",
+                "Mantine",
+                "Tailwind CSS",
+                "JavaScript",
+                "Responsive Design",
+            ],
+        ],
+        [
+            "title" => "Classroom Assistant",
+            "company" =>
+                "Institut Sains dan Teknologi Terpadu Surabaya (iSTTS)",
+            "date" => "Sep 2023 - Jun 2024 · 10 mos",
+            "location" => "Indonesia",
+            "description" => ["Assisted in teaching and mentoring students."],
+            "skills" => ["Teaching"],
+        ],
+    ],
+    "appearance" => [
+        "primary_color" => "#135bec",
+        "background_light" => "#f6f6f8",
+        "background_dark" => "#101622",
+    ],
+    "projects" => [
+        [
+            "title" => "Pocket Tracer",
+            "description" =>
+                "A Flutter-based mobile application designed for tracking personal finances. Helps users manage income and expenses to understand spending patterns and improve financial health.",
+            "image" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuCIeNJ81rsLSzfx8maR8fAaa9BuCU9f9FywOXNK0bqWrZHytJOjIIGX5UnZENbp_jG1VT5xXpxRYQ918RWRbfvwijhbiWvUoyMrMNO9BJFct6WqrypTtS21wEFzuwrBz1yWJoOpnQecuyrnanDwSqxk_fP7rndYETHPyDgvAOuvYd0teuVifze5sQ2Wq7z6KfzZCG60i_yGe86YorHQV67ec7GG5xV4v_wnnf-9PWVbxqBVfU0JOoNjvNRDGREJdbR03AUV5mpXXwM",
+            "alt" =>
+                "A smartphone screen showing a budget tracking application interface with charts and expense lists.",
+            "skills" => ["Flutter", "Dart", "Firebase"],
+            "date" => "Oct 2024 - Present",
+            "links" => [
+                [
+                    "type" => "github",
+                    "url" => "https://github.com/mcpe500/pocket-tracer",
+                    "label" => "GitHub",
+                ],
+            ],
+        ],
+        [
+            "title" => "note-writing-app",
+            "description" =>
+                "A Flutter prototype for a mobile writing app, allowing users to create and edit text content. Final project for Basic Flutter Certification through Dicoding.",
+            "image" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAPrqNfuz6A427iwLEEzbhg44g78TyfzvOb9ATJMDf9svLvYFj-i0Pl1s6Tvc7V7XIW6iadC_-FiCJM7d_MC7fn0C0u6LYz0Q9X1olmidn-jlDChikgFI496FJK5cNy9gaROyuP61sl0rPzzJC-wJRAaHADCScdz3lMrGmLwaig7wSjTVQm5rkzLlCbDaJ5NGBwZSCwnMC7dE63XQRAjDDAXGNPSPJyHrOpgcF8TWUOPlRI6NXQYK2SCoguTXlCkEstlxRrObpUj6Q",
+            "alt" =>
+                "A clean and minimal mobile writing application interface.",
+            "skills" => ["Flutter", "Dart"],
+            "date" => "May 2024 - Present",
+            "links" => [
+                [
+                    "type" => "github",
+                    "url" => "https://github.com/mcpe500/note-writing-app",
+                    "label" => "GitHub",
+                ],
+            ],
+        ],
+        [
+            "title" => "Final Project: 3D Graphics",
+            "description" =>
+                "Interactive 3D graphics application using Three.js with features like instanced meshes and water simulations. Collaborative final project for computer graphics course.",
+            "image" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuDo0zpTukEoJ2iXO-8Bb6C1Wuc1RwxCk8h3hjCq8Jo7XfiGBLiRvtGeMuBBwWMuyJlftEc0wKel-TEG1XjmmXFWIX69Av39f874mkbI7Csg-YD1uOgnvdPzK4-UQcGlnlBSvuuE5d7Nj_RkuCLU7F4l-AtXY5Mkp7qv4_bjgFHKjFC7E5A9CUjuYSiODvypRVnBBDpKrmyo0fAZFq_kJOYfhD3pbrWus0gdzMaRkzBu5GQVtbbO84ckRFFRW8sOe_sFhpiBsLxGUe4",
+            "alt" =>
+                "An abstract, colorful 3D wireframe graphic representing a WebGL project.",
+            "skills" => [
+                "Three.js",
+                "JavaScript",
+                "WebGL",
+                "Computer Graphics",
+            ],
+            "date" => "Apr 2024 - Jun 2024",
+            "links" => [
+                [
+                    "type" => "demo",
+                    "url" => "https://mcpe500.github.io/proyek_grafkom/",
+                    "label" => "Live Demo",
+                ],
+                [
+                    "type" => "github",
+                    "url" => "https://github.com/mcpe500/proyek_grafkom",
+                    "label" => "GitHub",
+                ],
+            ],
+        ],
+        [
+            "title" => "WeFit",
+            "description" =>
+                "Collaborative social fitness application for Android allowing users to track workouts, set goals, and share progress with friends.",
+            "image" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAPi6npLV44JAxAgfrYh2DZvBTQsCaHPomG5GkjRs_Jeso895oTAwpbdX6bzMz1y065axDRCHxMHagY4DJhrP2GeMqjYc2tvUIEGIeygCz66WHnBkXCc-DxJfiGonrrZM9IQ3uZgfYS-F6KSlxq6-9CKNPX4lGRvaxLnPpZOxntxIIHl1kGuSVuZ3pWJ885M9r2nd6xHrsebwq2raUkpoyqHJLkpxiI82fShUVRbHsA9tyXLbEnHN3ByqgOi2gbIfv3tf-RNIQqJ7M",
+            "alt" =>
+                "A mobile phone displaying a fitness application dashboard with activity rings and workout stats.",
+            "skills" => ["Java", "Android Studio", "SQL", "Google Maps"],
+            "date" => "Apr 2024 - Jun 2024",
+            "links" => [
+                [
+                    "type" => "github",
+                    "url" => "https://github.com/mcpe500/Proyek_WS",
+                    "label" => "GitHub",
+                ],
+            ],
+        ],
+    ],
+    "skills" => [
+        "Web Development" => [
+            [
+                "name" => "React.js",
+                "endorsements" => 2,
+                "logo" => "react",
+                "source" => "React JS - Web Frontend Development",
+            ],
+            [
+                "name" => "Node.js",
+                "endorsements" => 2,
+                "logo" => "node",
+                "source" => "React JS - Web Frontend Development",
+            ],
+            [
+                "name" => "Laravel",
+                "endorsements" => 0,
+                "logo" => "laravel",
+                "source" => "Laravel Web Development",
+            ],
+            [
+                "name" => "JavaScript",
+                "endorsements" => 10,
+                "logo" => "js",
+                "source" => "Multiple certifications",
+            ],
+            [
+                "name" => "TypeScript",
+                "endorsements" => 0,
+                "logo" => "ts",
+                "source" => "WeFit project",
+            ],
+        ],
+        "Mobile Development" => [
+            [
+                "name" => "Flutter",
+                "endorsements" => 2,
+                "logo" => "flutter",
+                "source" => "Belajar Membuat Aplikasi Flutter",
+            ],
+            [
+                "name" => "Dart",
+                "endorsements" => 0,
+                "logo" => "dart",
+                "source" => "Pocket Tracer",
+            ],
+            [
+                "name" => "Kotlin",
+                "endorsements" => 2,
+                "logo" => "kotlin",
+                "source" => "Android Development",
+            ],
+            [
+                "name" => "Android Studio",
+                "endorsements" => 2,
+                "logo" => "android",
+                "source" => "Android Development",
+            ],
+        ],
+        "Data & Machine Learning" => [
+            [
+                "name" => "Python",
+                "endorsements" => 2,
+                "logo" => "python",
+                "source" => "Multiple certifications",
+            ],
+            [
+                "name" => "Machine Learning",
+                "endorsements" => 4,
+                "logo" => "ml",
+                "source" => "Machine Learning Developer",
+            ],
+            [
+                "name" => "Pandas",
+                "endorsements" => 2,
+                "logo" => "pandas",
+                "source" => "Pandas certification",
+            ],
+            [
+                "name" => "Data Analysis",
+                "endorsements" => 2,
+                "logo" => "analysis",
+                "source" => "Data Analysis certifications",
+            ],
+        ],
+        "DevOps & Tools" => [
+            [
+                "name" => "Docker",
+                "endorsements" => 3,
+                "logo" => "docker",
+                "source" => "Red Hat Containers",
+            ],
+            [
+                "name" => "CI/CD",
+                "endorsements" => 0,
+                "logo" => "cicd",
+                "source" => "WeFit project",
+            ],
+            [
+                "name" => "Linux",
+                "endorsements" => 0,
+                "logo" => "linux",
+                "source" => "WeFit project",
+            ],
+            [
+                "name" => "Git",
+                "endorsements" => 0,
+                "logo" => "git",
+                "source" => "Project experience",
+            ],
+        ],
+        "Interpersonal & Other" => [
+            [
+                "name" => "Teaching",
+                "endorsements" => 1,
+                "logo" => "teach",
+                "source" => "Classroom Assistant",
+            ],
+            [
+                "name" => "Team Leadership",
+                "endorsements" => 1,
+                "logo" => "lead",
+                "source" => "WeFit project",
+            ],
+            [
+                "name" => "Teamwork",
+                "endorsements" => 1,
+                "logo" => "team",
+                "source" => "Multiple projects",
+            ],
+        ],
+    ],
+
+    "certifications" => [
+        [
+            "title" => "React JS - Web Frontend Development",
+            "issuer" => "SanberCode",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAa1TUz3FvcfmJS7A1PW0pCSnJ1EEbXg2UuEjDK9NRH8aahVeGB8K9TpemrocoLYEf7pNuLZEKbVksZq5Q1AsKp9iBUy6mBVJy-4qcjGkgdk4GxlCgpH-lnq8RBvMxk69Xf9BH8CJIG-OdEB3_AyypLlN-pMk6fB5REq94aDEzjcyK1rxmu9B3YrKv_DbzRie0ijzp0n2ZLRcWFrRqqkE61eu-aeAOjE0noRpDQqwY9Y7lLiLzIRGBwoIsC4grtn90hZ0XCHtrfdok",
+            "date" => "Issued Apr 2025",
+            "credential_id" => "8eed9b93-b23e-46e8-906e-6249c62c307e",
+            "category" => "Web Dev",
+            "skills" => ["React.js", "Node.js"],
+            "url" => "#",
+        ],
+        [
+            "title" => "Laravel Web Development",
+            "issuer" => "SanberCode",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAa1TUz3FvcfmJS7A1PW0pCSnJ1EEbXg2UuEjDK9NRH8aahVeGB8K9TpemrocoLYEf7pNuLZEKbVksZq5Q1AsKp9iBUy6mBVJy-4qcjGkgdk4GxlCgpH-lnq8RBvMxk69Xf9BH8CJIG-OdEB3_AyypLlN-pMk6fB5REq94aDEzjcyK1rxmu9B3YrKv_DbzRie0ijzp0n2ZLRcWFrRqqkE61eu-aeAOjE0noRpDQqwY9Y7lLiLzIRGBwoIsC4grtn90hZ0XCHtrfdok",
+            "date" => "Issued Feb 2025",
+            "credential_id" => "90e91960-193d-40e0-b5e6-f209444d2874",
+            "category" => "Web Dev",
+            "skills" => ["Laravel"],
+            "url" => "#",
+        ],
+        [
+            "title" => "Building Real-Time Video AI Applications",
+            "issuer" => "NVIDIA",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuDq9YYZwBYRd1G0gIRvHbs1LNOh9RvgwnapI5acacW41QSzAXkef090sTIgdOLyZTg5UUErJYHqKFEP9hymKRuCgB5ns_Q12r27hV4_GRmYmHZR4zmY4gAaMmUhMcqxDYyeBWV5qYmZ92YykiVY0L35qqYkQCkkP69Tvd7HXm8gzVCfnoRxAR0laz1IxCBqSt6wquatH-wHHOl5aI2ZqhqpoFTXomEaln70MlHScwxAgBTc0uuyN279Zl22-x5YXaTAEbXNzG7ZU4I",
+            "date" => "Issued Dec 2024",
+            "credential_id" => "Q4EMbY4-RIC3lBbVLPFPYQ",
+            "category" => "AI/ML",
+            "skills" => ["Computer Vision", "AI"],
+            "url" => "#",
+        ],
+        [
+            "title" => "Prompt Engineer",
+            "issuer" => "SanberCode",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAa1TUz3FvcfmJS7A1PW0pCSnJ1EEbXg2UuEjDK9NRH8aahVeGB8K9TpemrocoLYEf7pNuLZEKbVksZq5Q1AsKp9iBUy6mBVJy-4qcjGkgdk4GxlCgpH-lnq8RBvMxk69Xf9BH8CJIG-OdEB3_AyypLlN-pMk6fB5REq94aDEzjcyK1rxmu9B3YrKv_DbzRie0ijzp0n2ZLRcWFrRqqkE61eu-aeAOjE0noRpDQqwY9Y7lLiLzIRGBwoIsC4grtn90hZ0XCHtrfdok",
+            "date" => "Issued Dec 2024",
+            "credential_id" => "43df8ec4-0b8a-4c3c-b3f7-51e783d96cd2",
+            "category" => "AI/ML",
+            "skills" => ["Prompt Engineering"],
+            "url" => "#",
+        ],
+        [
+            "title" => "Belajar Membuat Aplikasi Flutter untuk Pemula",
+            "issuer" => "Dicoding Indonesia",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuB5-qhfbcP5J0lbo0NhnfvXLzRHqgwy-puSU8MHXVLXx636e7G8oE1nv7nkhoaz3UnIHXIc0Nsi2J5Ip4oCTqMwdo-hQIYFnQFuDzrBgaEy3UIYbGL-R6D5y-MUkphWcOFDZoNooE65CZBtKOdTjTthb3_fhNNkMrAhYEAJeYNH2HrLGpP7EZB6rTYb9n9CYTEtal1RY-AAP_H4VcJvIZTJpvnJ6l3zc32gWxltEmTBje_S67NzkNy1_PLpGljR9ySI9TQQbAZuerM",
+            "date" => "Issued May 2024 · Expires May 2027",
+            "credential_id" => "98XWL280WZM3",
+            "category" => "Mobile",
+            "skills" => ["Flutter"],
+            "url" => "#",
+        ],
+        [
+            "title" => "AWS Certified Cloud Practitioner",
+            "issuer" => "AWS",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuD6ryMiBv7FhXs71z4ZLJy1IZ-aW79JmK_VJfDns0SDDOuG-kpL_RoMHbNAu1WOx3uSf-viPbiCYhBXSwNguKbE91V1nlQZxCaMSXD81dEwZrcvYQ1X4AY5-WiobJcGC1Pwa-_9ZZbP_Evk0dD-TqFiOd02-J_Ioe9br-6vDRAB4ysh5ys2vBSIxExthOsdOczYPROjE0GzU2yGjxj8jRP_L75jbf9dAqaGr2_RCfGN43_QYfP2u15Ry2-uWjzJNMPulZmrI1jBzmg",
+            "date" => "Issued Dec 2023",
+            "credential_id" => "AWS-CP-12345",
+            "category" => "Cloud",
+            "skills" => ["AWS", "Cloud Computing"],
+            "url" => "#",
+        ],
+        [
+            "title" => "Red Hat Certified Specialist in Containers",
+            "issuer" => "Red Hat",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuDFhXm3GrvIzFz7yJ4Zsgc4--AHtWz1Mnod7k3QjqQlb-Py0C5f61C0Ti-2smT1AYpATzQFx81BXwE_2nC60mjEPyuGfAg8far8_NlwmjplHUTPpaFiSbGkNNwAppUulVEz6Iasji3336DRt2pqNU-YMgStgIoTghDeAS0ibhflSZmqBBQZZFc22M8PzgWlPWvjwPmVecTNOQXwJUiMI2Uf-njeUkhCm57tGzuts0QGqKPZzcgOdbVToaHG7s-bw1O5YKJAoyvkU1M",
+            "date" => "Issued Dec 2023 · Expires Dec 2026",
+            "credential_id" => "RH-12345",
+            "category" => "DevOps",
+            "skills" => ["Docker", "Podman"],
+            "url" => "#",
+        ],
+        [
+            "title" => "JavaScript Algorithms and Data Structures",
+            "issuer" => "freeCodeCamp",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuBWHD1dxuPgGKY18UP3F8Msl5PTw0KUKpR_w5COMWZt_W5TDzmuzunNvtZicPXSg8wscb0IIyLmitYwZ3gbfaUm3fp3wPGjVs5TGtvWa_ClgIlH_rbLjJEXKA0Rr8S_uLZ5BDaJAg6AO-nM3-c3fJXxz616SyyL0I8HrlOSwq27apt2w4g7et4vwkuDZI8ioarAq8gXJL0vUqRnzVSATAbf4UK7UdTGtOOSD5cnBjlnuNU8JetQ1DHR5o-jtMZqx65OuUA3DjZiUso",
+            "date" => "Issued Apr 2022",
+            "credential_id" => "fcc-js-algorithms",
+            "category" => "Web Dev",
+            "skills" => ["JavaScript", "Data Structures", "Algorithms"],
+            "url" => "#",
+        ],
+    ],
+];
