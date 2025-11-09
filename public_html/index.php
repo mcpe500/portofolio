@@ -26,6 +26,11 @@ $config = require __DIR__ . "/config.php";
 $request_uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 $current_page = trim($request_uri, "/");
 
+// Handle the special case of index.php in the URL
+if ($current_page === 'index.php') {
+    $current_page = '';
+}
+
 // Map routes to page files
 $routes = [
     "" => "home.php",
@@ -49,8 +54,7 @@ if (!isset($routes[$current_page])) {
 }
 
 // Page title
-$page_title =
-    $config["site"]["name"] . " - " . ucfirst($current_page ?: "Home");
+$page_title = $config["site"]["name"] . " - " . ucfirst($current_page ?: "Home");
 
 // Render page
 ?>
