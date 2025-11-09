@@ -406,28 +406,6 @@ return [
             "url" => "#",
         ],
         [
-            "title" => "AWS Certified Cloud Practitioner",
-            "issuer" => "AWS",
-            "issuer_logo" =>
-                "https://lh3.googleusercontent.com/aida-public/AB6AXuD6ryMiBv7FhXs71z4ZLJy1IZ-aW79JmK_VJfDns0SDDOuG-kpL_RoMHbNAu1WOx3uSf-viPbiCYhBXSwNguKbE91V1nlQZxCaMSXD81dEwZrcvYQ1X4AY5-WiobJcGC1Pwa-_9ZZbP_Evk0dD-TqFiOd02-J_Ioe9br-6vDRAB4ysh5ys2vBSIxExthOsdOczYPROjE0GzU2yGjxj8jRP_L75jbf9dAqaGr2_RCfGN43_QYfP2u15Ry2-uWjzJNMPulZmrI1jBzmg",
-            "date" => "Issued Dec 2023",
-            "credential_id" => "AWS-CP-12345",
-            "category" => "Cloud",
-            "skills" => ["AWS", "Cloud Computing"],
-            "url" => "#",
-        ],
-        [
-            "title" => "Red Hat Certified Specialist in Containers",
-            "issuer" => "Red Hat",
-            "issuer_logo" =>
-                "https://lh3.googleusercontent.com/aida-public/AB6AXuDFhXm3GrvIzFz7yJ4Zsgc4--AHtWz1Mnod7k3QjqQlb-Py0C5f61C0Ti-2smT1AYpATzQFx81BXwE_2nC60mjEPyuGfAg8far8_NlwmjplHUTPpaFiSbGkNNwAppUulVEz6Iasji3336DRt2pqNU-YMgStgIoTghDeAS0ibhflSZmqBBQZZFc22M8PzgWlPWvjwPmVecTNOQXwJUiMI2Uf-njeUkhCm57tGzuts0QGqKPZzcgOdbVToaHG7s-bw1O5YKJAoyvkU1M",
-            "date" => "Issued Dec 2023 · Expires Dec 2026",
-            "credential_id" => "RH-12345",
-            "category" => "DevOps",
-            "skills" => ["Docker", "Podman"],
-            "url" => "#",
-        ],
-        [
             "title" => "JavaScript Algorithms and Data Structures",
             "issuer" => "freeCodeCamp",
             "issuer_logo" =>
@@ -437,6 +415,39 @@ return [
             "category" => "Web Dev",
             "skills" => ["JavaScript", "Data Structures", "Algorithms"],
             "url" => "#",
+        ],
+        [
+            "title" => "AWS Certified Cloud Practitioner",
+            "issuer" => "AWS",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuD6ryMiBv7FhXs71z4ZLJy1IZ-aW79JmK_VJfDns0SDDOuG-kpL_RoMHbNAu1WOx3uSf-viPbiCYhBXSwNguKbE91V1nlQZxCaMSXD81dEwZrcvYQ1X4AY5-WiobJcGC1Pwa-_9ZZbP_Evk0dD-TqFiOd02-J_Ioe9br-6vDRAB4ysh5ys2vBSIxExthOsdOczYPROjE0GzU2yGjxj8jRP_L75jbf9dAqaGr2_RCfGN43_QYfP2u15Ry2-uWjzJNMPulZmrI1jBzmg",
+            "date" => "Issued Dec 2023",
+            "credential_id" => "9c19e85c-fece-4ea6-9385-a8e21e291239",
+            "category" => "Cloud",
+            "skills" => ["AWS", "Cloud Computing"],
+            "url" => "https://www.credly.com/badges/9c19e85c-fece-4ea6-9385-a8e21e291239/linked_in_profile",
+        ],
+        [
+            "title" => "Red Hat Certified Specialist in Containers",
+            "issuer" => "Red Hat",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuDFhXm3GrvIzFz7yJ4Zsgc4--AHtWz1Mnod7k3QjqQlb-Py0C5f61C0Ti-2smT1AYpATzQFx81BXwE_2nC60mjEPyuGfAg8far8_NlwmjplHUTPpaFiSbGkNNwAppUulVEz6Iasji3336DRt2pqNU-YMgStgIoTghDeAS0ibhflSZmqBBQZZFc22M8PzgWlPWvjwPmVecTNOQXwJUiMI2Uf-njeUkhCm57tGzuts0QGqKPZzcgOdbVToaHG7s-bw1O5YKJAoyvkU1M",
+            "date" => "Issued Dec 2023 · Expires Dec 2026",
+            "credential_id" => "d1b29e51-7f49-470d-9e55-be31937e3385",
+            "category" => "DevOps",
+            "skills" => ["Docker", "Containerization", "Podman"],
+            "url" => "https://www.credly.com/badges/d1b29e51-7f49-470d-9e55-be31937e3385/linked_in_profile",
+        ],
+        [
+            "title" => "Fundamentals of Deep Learning",
+            "issuer" => "NVIDIA",
+            "issuer_logo" =>
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuDq9YYZwBYRd1G0gIRvHbs1LNOh9RvgwnapI5acacW41QSzAXkef090sTIgdOLyZTg5UUErJYHqKFEP9hymKRuCgB5ns_Q12r27hV4_GRmYmHZR4zmY4gAaMmUhMcqxDYyeBWV5qYmZ92YykiVY0L35qqYkQCkkP69Tvd7HXm8gzVCfnoRxAR0laz1IxCBqSt6wquatH-wHHOl5aI2ZqhqpoFTXomEaln70MlHScwxAgBTc0uuyN279Zl22-x5YXaTAEbXNzG7ZU4I",
+            "date" => "Issued Nov 2023",
+            "credential_id" => "rFdGGj_oRd2NQbQglUJ1Bw",
+            "category" => "AI/ML",
+            "skills" => ["Deep Learning", "Neural Networks", "AI"],
+            "url" => "https://learn.nvidia.com/certificates?id=0a554ebf268c414cbedb4332167edebe",
         ],
     ],
     "education" => [
