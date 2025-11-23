@@ -42,6 +42,19 @@ $routes = [
     "education" => "education.php",
     "resume" => "resume.php",
     "contact" => "contact.php",
+    "tools" => "tools.php",
+    "tools/mermaid" => "tools/mermaid.php",
+    "tools/html" => "tools/html.php",
+    "tools/markdown" => "tools/markdown.php",
+    "tools/react" => "tools/react.php",
+    "tools/vue" => "tools/vue.php",
+    "tools/angular" => "tools/angular.php",
+    "tools/svelte" => "tools/svelte.php",
+    "tools/swagger" => "tools/swagger.php",
+    "tools/nodejs" => "tools/nodejs.php",
+    "tools/typescript" => "tools/typescript.php",
+    "tools/coffeescript" => "tools/coffeescript.php",
+    "tools/vbscript" => "tools/vbscript.php",
 ];
 
 // Default to home if route not found

@@ -18,6 +18,7 @@ return [
     "navigation" => [
         ["label" => "Experience", "url" => "/experience", "type" => "link"],
         ["label" => "Projects", "url" => "/projects", "type" => "link"],
+        ["label" => "Tools", "url" => "/tools", "type" => "link"],
         ["label" => "Skills", "url" => "/skills", "type" => "link"],
         ["label" => "Education", "url" => "/education", "type" => "link"],
         ["label" => "About", "url" => "/about", "type" => "link"],
@@ -132,7 +133,114 @@ return [
         "background_light" => "#f6f6f8",
         "background_dark" => "#101622",
     ],
+    "tools" => [
+        "mermaid" => [
+            "title" => "Mermaid Editor",
+            "description" => "Create diagrams and charts using text and code.",
+            "icon" => "account_tree",
+            "route" => "tools/mermaid",
+            "status" => "stable",
+        ],
+        "html" => [
+            "title" => "HTML Preview",
+            "description" => "Real-time HTML/CSS editor with fullscreen preview.",
+            "icon" => "html",
+            "route" => "tools/html",
+            "status" => "stable",
+        ],
+        "markdown" => [
+            "title" => "Markdown Editor",
+            "description" => "Write Markdown with live HTML preview.",
+            "icon" => "markdown",
+            "route" => "tools/markdown",
+            "status" => "stable",
+        ],
+        "react" => [
+            "title" => "React Playground",
+            "description" => "Experiment with React components in the browser.",
+            "icon" => "code_blocks",
+            "route" => "tools/react",
+            "status" => "experimental",
+        ],
+        "vue" => [
+            "title" => "Vue Playground",
+            "description" => "Live Vue.js component editor.",
+            "icon" => "view_quilt",
+            "route" => "tools/vue",
+            "status" => "experimental",
+        ],
+        "angular" => [
+            "title" => "AngularJS Playground",
+            "description" => "Legacy AngularJS (v1.x) playground.",
+            "icon" => "javascript",
+            "route" => "tools/angular",
+            "status" => "legacy",
+        ],
+        "svelte" => [
+            "title" => "Svelte Playground",
+            "description" => "Experimental Svelte component viewer.",
+            "icon" => "bolt",
+            "route" => "tools/svelte",
+            "status" => "experimental",
+        ],
+        "swagger" => [
+            "title" => "Swagger Editor",
+            "description" => "Design and document APIs with OpenAPI.",
+            "icon" => "api",
+            "route" => "tools/swagger",
+            "status" => "experimental",
+        ],
+        "nodejs" => [
+            "title" => "Node.js Playground",
+            "description" => "Run JavaScript with console emulation.",
+            "icon" => "terminal",
+            "route" => "tools/nodejs",
+            "status" => "stable",
+        ],
+        "typescript" => [
+            "title" => "TypeScript Playground",
+            "description" => "Compile and run TypeScript in the browser.",
+            "icon" => "code",
+            "route" => "tools/typescript",
+            "status" => "stable",
+        ],
+        "coffeescript" => [
+            "title" => "CoffeeScript Playground",
+            "description" => "Compile and run CoffeeScript.",
+            "icon" => "coffee",
+            "route" => "tools/coffeescript",
+            "status" => "legacy",
+        ],
+        "vbscript" => [
+            "title" => "VBScript Editor",
+            "description" => "VBScript editor with syntax highlighting.",
+            "icon" => "description",
+            "route" => "tools/vbscript",
+            "status" => "legacy",
+        ],
+    ],
     "projects" => [
+        [
+            "title" => "E-Class",
+            "description" =>
+                "Class management system with multiple roles and admin panel. A comprehensive solution for educational institutions.",
+            "image" => "",
+            "alt" => "E-Class Project Dashboard",
+            "skills" => ["PHP", "MySQL", "Web Development"],
+            "date" => "Nov 2025",
+            "links" => [
+                [
+                    "type" => "demo",
+                    "url" => "/eclass",
+                    "label" => "Live Demo",
+                ],
+                [
+                    "type" => "github",
+                    "url" => "https://github.com/mcpe500/eclass-portofolio.git",
+                    "label" => "GitHub",
+                ],
+            ],
+        ],
         [
             "title" => "Pocket Tracer",
             "description" =>
