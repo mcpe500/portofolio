@@ -33,7 +33,7 @@
 <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 
 <!-- Monaco Editor loader -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/vs/loader.min.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"
         crossorigin="anonymous"
         referrerpolicy="no-referrer"></script>
 
@@ -77,14 +77,14 @@ This preview is sanitized to prevent XSS attacks.
     // Configure Monaco loader
     require.config({
         paths: {
-            'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/vs'
+            'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs'
         }
     });
 
     // Worker config
     window.MonacoEnvironment = {
         getWorkerUrl: function () {
-            const base = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/';
+            const base = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/';
             const code = `
                 self.MonacoEnvironment = { baseUrl: '${base}' };
                 importScripts('${base}vs/base/worker/workerMain.min.js');

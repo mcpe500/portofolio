@@ -41,14 +41,14 @@
         <div class="w-1/2 bg-white dark:bg-white overflow-hidden relative">
             <iframe id="preview-frame"
                     class="w-full h-full border-0"
-                    sandbox="allow-scripts allow-modals allow-forms"
+                    sandbox="allow-scripts allow-modals allow-forms allow-same-origin"
                     title="Preview"></iframe>
         </div>
     </div>
 </div>
 
 <!-- Monaco Editor loader (no integrity; use a stable version) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/vs/loader.min.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"
         crossorigin="anonymous"
         referrerpolicy="no-referrer"></script>
 
@@ -176,14 +176,14 @@
     // Configure Monaco loader (cdnjs)
     require.config({
         paths: {
-            'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/vs'
+            'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs'
         }
     });
 
     // Optional: make workers load correctly (avoids extra console noise)
     window.MonacoEnvironment = {
         getWorkerUrl: function () {
-            const base = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/';
+            const base = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/';
             const code = `
                 self.MonacoEnvironment = { baseUrl: '${base}' };
                 importScripts('${base}vs/base/worker/workerMain.min.js');

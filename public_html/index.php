@@ -55,6 +55,18 @@ $routes = [
     "tools/typescript" => "tools/typescript.php",
     "tools/coffeescript" => "tools/coffeescript.php",
     "tools/vbscript" => "tools/vbscript.php",
+
+    // NEW ROUTES
+    "tools/qr" => "tools/qr.php",
+    "tools/barcode" => "tools/barcode.php",
+    "tools/glb-viewer" => "tools/glb-viewer.php",
+    "tools/gltf-viewer" => "tools/gltf-viewer.php",
+
+    "tools/calc/scientific" => "tools/calc/scientific.php",
+    "tools/calc/graphing" => "tools/calc/graphing.php",
+    "tools/calc/converter" => "tools/calc/converter.php",
+    "tools/calc/finance" => "tools/calc/finance.php",
+    "tools/calc/programmer" => "tools/calc/programmer.php",
 ];
 
 // Default to home if route not found

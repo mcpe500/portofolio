@@ -213,10 +213,82 @@ return [
         ],
         "vbscript" => [
             "title" => "VBScript Editor",
-            "description" => "VBScript editor with syntax highlighting.",
+            "description" => "VBScript editor with syntax highlighting and HTML preview.",
             "icon" => "description",
             "route" => "tools/vbscript",
             "status" => "legacy",
+        ],
+
+        // NEW: QR Generator
+        "qr-generator" => [
+            "title" => "QR Code Generator",
+            "description" => "Generate QR codes for text, URLs, and more.",
+            "icon" => "qr_code_2",
+            "route" => "tools/qr",
+            "status" => "stable",
+        ],
+
+        // NEW: Barcode Generator
+        "barcode-generator" => [
+            "title" => "Barcode Generator",
+            "description" => "Create common 1D barcodes (CODE128, EAN-13, etc.).",
+            "icon" => "barcode",
+            "route" => "tools/barcode",
+            "status" => "stable",
+        ],
+
+        // NEW: GLB Viewer
+        "glb-viewer" => [
+            "title" => "GLB Viewer",
+            "description" => "Preview local .glb 3D models in the browser.",
+            "icon" => "view_in_ar",
+            "route" => "tools/glb-viewer",
+            "status" => "experimental",
+        ],
+
+        // NEW: GLTF Viewer
+        "gltf-viewer" => [
+            "title" => "GLTF Viewer",
+            "description" => "Load and inspect .gltf models from a URL.",
+            "icon" => "view_in_ar",
+            "route" => "tools/gltf-viewer",
+            "status" => "experimental",
+        ],
+
+        "calc-scientific" => [
+            "title" => "Scientific Calculator",
+            "description" => "Advanced math with functions and history.",
+            "icon" => "calculate",
+            "route" => "tools/calc/scientific",
+            "status" => "stable",
+        ],
+        "calc-graphing" => [
+            "title" => "Graphing Calculator",
+            "description" => "Plot 2D functions and visualize data.",
+            "icon" => "monitoring",
+            "route" => "tools/calc/graphing",
+            "status" => "stable",
+        ],
+        "calc-converter" => [
+            "title" => "Unit Converter",
+            "description" => "Convert Length, Mass, Volume, and more.",
+            "icon" => "straighten",
+            "route" => "tools/calc/converter",
+            "status" => "stable",
+        ],
+        "calc-finance" => [
+            "title" => "Finance Calculator",
+            "description" => "Compound Interest, ROI, and Growth Charts.",
+            "icon" => "payments",
+            "route" => "tools/calc/finance",
+            "status" => "stable",
+        ],
+        "calc-programmer" => [
+            "title" => "Programmer Calculator",
+            "description" => "HEX, DEC, OCT, BIN and Bitwise Operations.",
+            "icon" => "terminal",
+            "route" => "tools/calc/programmer",
+            "status" => "stable",
         ],
     ],
     "projects" => [
