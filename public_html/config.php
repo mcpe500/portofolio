@@ -255,6 +255,51 @@ return [
             "status" => "experimental",
         ],
 
+        // NEW: REST Client
+        "rest-client" => [
+            "title" => "REST Client",
+            "description" => "Full-featured API testing tool like Postman",
+            "icon" => "api",
+            "route" => "tools/rest-client",
+            "status" => "stable",
+        ],
+
+        // NEW: Data Converter
+        "data-converter" => [
+            "title" => "Data Converter",
+            "description" => "Convert between JSON, YAML, TOML, XML formats",
+            "icon" => "transform",
+            "route" => "tools/data-converter",
+            "status" => "stable",
+        ],
+
+        // NEW: Diff Checker
+        "diff-checker" => [
+            "title" => "Diff Checker",
+            "description" => "Compare text and files with advanced diff visualization",
+            "icon" => "difference",
+            "route" => "tools/diff",
+            "status" => "stable",
+        ],
+
+        // NEW: Regex Tester
+        "regex-tester" => [
+            "title" => "Regex Tester",
+            "description" => "Test regular expressions with live highlighting",
+            "icon" => "regular_expression",
+            "route" => "tools/regex",
+            "status" => "stable",
+        ],
+
+        // NEW: JWT Decoder
+        "jwt-decoder" => [
+            "title" => "JWT Decoder",
+            "description" => "Decode and inspect JWT tokens",
+            "icon" => "key",
+            "route" => "tools/jwt",
+            "status" => "stable",
+        ],
+
         "calc-scientific" => [
             "title" => "Scientific Calculator",
             "description" => "Advanced math with functions and history.",

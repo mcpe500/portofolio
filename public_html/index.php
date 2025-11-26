@@ -62,6 +62,13 @@ $routes = [
     "tools/glb-viewer" => "tools/glb-viewer.php",
     "tools/gltf-viewer" => "tools/gltf-viewer.php",
 
+    // NEW: Developer Tools
+    "tools/rest-client" => "tools/rest-client.php",
+    "tools/data-converter" => "tools/data-converter.php",
+    "tools/diff" => "tools/diff.php",
+    "tools/regex" => "tools/regex.php",
+    "tools/jwt" => "tools/jwt.php",
+
     "tools/calc/scientific" => "tools/calc/scientific.php",
     "tools/calc/graphing" => "tools/calc/graphing.php",
     "tools/calc/converter" => "tools/calc/converter.php",

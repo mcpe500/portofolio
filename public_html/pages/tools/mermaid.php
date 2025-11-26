@@ -48,6 +48,7 @@
         startOnLoad: false,
         theme: document.documentElement.classList.contains('dark') ? 'dark' : 'default',
         securityLevel: 'loose',
+        flowchart: { htmlLabels: false }, // Required to prevent tainted canvas error on export
     });
 
     window.mermaid = mermaid; // Expose for use in non-module script
