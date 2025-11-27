@@ -309,6 +309,15 @@ return [
             "status" => "stable",
         ],
 
+        // NEW: Password Generator
+        "password-generator" => [
+            "title" => "Password Generator",
+            "description" => "Generate secure, random passwords and strings with custom options.",
+            "icon" => "lock_reset",
+            "route" => "tools/password-generator",
+            "status" => "stable",
+        ],
+
         "calc-scientific" => [
             "title" => "Scientific Calculator",
             "description" => "Advanced math with functions and history.",
