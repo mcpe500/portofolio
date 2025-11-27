@@ -318,6 +318,33 @@ return [
             "status" => "stable",
         ],
 
+        // NEW: Hash & Encryption
+        "hash-crypto" => [
+            "title" => "Hash & Encryption",
+            "description" => "Compute hashes (MD5, SHA) and encrypt/decrypt text (AES, DES).",
+            "icon" => "enhanced_encryption",
+            "route" => "tools/hash-crypto",
+            "status" => "stable",
+        ],
+
+        // NEW: PDF Converter
+        "pdf-converter" => [
+            "title" => "PDF Converter",
+            "description" => "Convert Images, HTML, and Documents to PDF.",
+            "icon" => "picture_as_pdf",
+            "route" => "tools/pdf-converter",
+            "status" => "beta",
+        ],
+
+        // NEW: Command Helper
+        "command-helper" => [
+            "title" => "Command Helper",
+            "description" => "Generators for Cron jobs, Chmod permissions, and Tar commands.",
+            "icon" => "terminal",
+            "route" => "tools/command-helper",
+            "status" => "stable",
+        ],
+
         "calc-scientific" => [
             "title" => "Scientific Calculator",
             "description" => "Advanced math with functions and history.",

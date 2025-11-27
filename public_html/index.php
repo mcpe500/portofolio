@@ -70,6 +70,9 @@ $routes = [
     "tools/jwt" => "tools/jwt.php",
     "tools/date-formatter" => "tools/date-formatter.php",
     "tools/password-generator" => "tools/password-generator.php",
+    "tools/hash-crypto" => "tools/hash-crypto.php",
+    "tools/pdf-converter" => "tools/pdf-converter.php",
+    "tools/command-helper" => "tools/command-helper.php",
 
     "tools/calc/scientific" => "tools/calc/scientific.php",
     "tools/calc/graphing" => "tools/calc/graphing.php",
