@@ -300,6 +300,15 @@ return [
             "status" => "stable",
         ],
 
+        // NEW: Date Formatter
+        "date-formatter" => [
+            "title" => "Date Formatter",
+            "description" => "Convert dates between various formats (ISO 8601, RFC 3339, Unix, etc.)",
+            "icon" => "calendar_today",
+            "route" => "tools/date-formatter",
+            "status" => "stable",
+        ],
+
         "calc-scientific" => [
             "title" => "Scientific Calculator",
             "description" => "Advanced math with functions and history.",

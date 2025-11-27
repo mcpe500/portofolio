@@ -68,6 +68,7 @@ $routes = [
     "tools/diff" => "tools/diff.php",
     "tools/regex" => "tools/regex.php",
     "tools/jwt" => "tools/jwt.php",
+    "tools/date-formatter" => "tools/date-formatter.php",
 
     "tools/calc/scientific" => "tools/calc/scientific.php",
     "tools/calc/graphing" => "tools/calc/graphing.php",
