@@ -72,6 +72,7 @@ $routes = [
     "tools/password-generator" => "tools/password-generator.php",
     "tools/hash-crypto" => "tools/hash-crypto.php",
     "tools/pdf-converter" => "tools/pdf-converter.php",
+    "tools/pdf-merger" => "tools/pdf-merger.php",
     "tools/command-helper" => "tools/command-helper.php",
 
     "tools/calc/scientific" => "tools/calc/scientific.php",
