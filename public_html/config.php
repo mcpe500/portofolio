@@ -336,6 +336,15 @@ return [
             "status" => "beta",
         ],
 
+        // NEW: PDF Merger
+        "pdf-merger" => [
+            "title" => "PDF Merger",
+            "description" => "Merge multiple PDF files into a single document.",
+            "icon" => "picture_as_pdf",
+            "route" => "tools/pdf-merger",
+            "status" => "beta",
+        ],
+
         // NEW: Command Helper
         "command-helper" => [
             "title" => "Command Helper",
