@@ -354,6 +354,15 @@ return [
             "status" => "stable",
         ],
 
+        // NEW: Quantum Visualizer
+        "quantum" => [
+            "title" => "Quantum Visualizer",
+            "description" => "Interactive Quantum Circuit Simulator with Math & Physics.",
+            "icon" => "science",
+            "route" => "tools/quantum",
+            "status" => "experimental",
+        ],
+
         "calc-scientific" => [
             "title" => "Scientific Calculator",
             "description" => "Advanced math with functions and history.",
@@ -392,23 +401,33 @@ return [
     ],
     "projects" => [
         [
-            "title" => "E-Class",
+            "title" => "Rupavo",
             "description" =>
-                "Class management system with multiple roles and admin panel. A comprehensive solution for educational institutions.",
-            "image" => "",
-            "alt" => "E-Class Project Dashboard",
-            "skills" => ["PHP", "MySQL", "Web Development"],
-            "date" => "Nov 2025",
+                "A smart commerce platform for MSMEs that aids in daily business performance analysis. Automated catalog generation, sales reporting, and AI-driven insights.",
+            "image" => "assets/img/rupavo-storefront.png",
+            "alt" => "Rupavo Storefront Dashboard",
+            "skills" => ["Next.js", "React", "Tailwind CSS", "AI", "Android"],
+            "date" => "Present",
             "links" => [
                 [
                     "type" => "demo",
-                    "url" => "/eclass",
-                    "label" => "Live Demo",
+                    "url" => "https://rupavo-storefront.vercel.app/",
+                    "label" => "Storefront",
+                ],
+                [
+                    "type" => "demo",
+                    "url" => "https://rupavo-principal.vercel.app/",
+                    "label" => "Principal",
                 ],
                 [
                     "type" => "github",
-                    "url" => "https://github.com/mcpe500/eclass-portofolio.git",
+                    "url" => "https://github.com/mcpe500/rupavo-repo",
                     "label" => "GitHub",
+                ],
+                [
+                    "type" => "demo",
+                    "url" => "https://github.com/mcpe500/rupavo-repo/releases/tag/MVP",
+                    "label" => "Merchant App",
                 ],
             ],
         ],

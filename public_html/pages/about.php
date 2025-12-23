@@ -58,8 +58,8 @@ if (!empty($uncategorized_skills)) {
 
         <!-- Bio Section -->
         <section class="mb-12">
-            <div class="bg-white dark:bg-slate-800/50 rounded-xl border border-gray-200 dark:border-slate-800 p-6 md:p-8">
-                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            <div class="bg-white dark:bg-surface rounded-xl border border-gray-200 dark:border-border p-6 md:p-8">
+                <p class="text-lg text-gray-700 dark:text-muted leading-relaxed">
                     <?= htmlspecialchars($config['site']['bio']) ?>
                 </p>
             </div>

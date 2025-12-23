@@ -21,8 +21,8 @@
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Technical Skills</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php foreach ($config["skills"] as $category => $skills): ?>
-                    <div class="flex flex-col gap-4 rounded-xl bg-white dark:bg-slate-800/50
-                                border border-gray-200 dark:border-slate-800 p-6
+                    <div class="flex flex-col gap-4 rounded-xl bg-white dark:bg-surface
+                                border border-gray-200 dark:border-border p-6
                                 hover:border-primary/30 dark:hover:border-primary/30 transition-all">
                         <h3 class="text-lg font-bold text-primary"><?= htmlspecialchars(
                             $category,
@@ -56,7 +56,7 @@
                                         </span>
                                     </div>
                                     <?php if ($skill["endorsements"] > 0): ?>
-                                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                                        <span class="text-xs text-gray-500 dark:text-muted">
                                             <?= $skill[
                                                 "endorsements"
                                             ] ?> endorsements
@@ -82,8 +82,8 @@
                             <span class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-sm">search</span>
                         </div>
                         <input id="cert-search"
-                               class="block w-full sm:w-64 rounded-lg border border-gray-300 dark:border-gray-700
-                                      bg-white dark:bg-slate-800 py-2 pl-10 pr-3 text-sm
+                               class="block w-full sm:w-64 rounded-lg border border-gray-300 dark:border-border
+                                      bg-white dark:bg-surface py-2 pl-10 pr-3 text-sm
                                       text-gray-900 dark:text-gray-200 placeholder-gray-500
                                       focus:outline-none focus:ring-2 focus:ring-primary"
                                placeholder="Search certifications..."
@@ -103,8 +103,8 @@
             <!-- Certification Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cert-grid">
                 <?php foreach ($config["certifications"] as $index => $cert): ?>
-                    <article class="cert-card flex flex-col rounded-xl bg-white dark:bg-slate-800/50
-                                    border border-gray-200 dark:border-slate-800 p-6
+                    <article class="cert-card flex flex-col rounded-xl bg-white dark:bg-surface
+                                    border border-gray-200 dark:border-border p-6
                                     hover:border-primary/30 dark:hover:border-primary/30
                                     hover:shadow-lg transition-all opacity-0 translate-y-4 animate-fade-in-up"
                              data-category="<?= htmlspecialchars(

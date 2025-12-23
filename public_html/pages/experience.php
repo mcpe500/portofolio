@@ -36,7 +36,7 @@
                         <!-- Content Card -->
                         <div class="pl-12 md:pl-16">
                             <div class="opacity-0 translate-y-4 animate-fade-in-up">
-                                <div class="bg-white dark:bg-slate-800/50 rounded-xl border border-gray-200 dark:border-slate-800
+                                <div class="bg-white dark:bg-surface rounded-xl border border-gray-200 dark:border-border
                                             shadow-sm hover:shadow-xl transition-all duration-300
                                             hover:border-primary/30 dark:hover:border-primary/30 p-6 md:p-8">
 
@@ -55,7 +55,7 @@
                                             </p>
                                         </div>
                                         <div class="text-right md:text-right">
-                                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                                            <p class="text-sm font-medium text-gray-500 dark:text-muted">
                                                 <?= htmlspecialchars(
                                                     $exp["date"],
                                                 ) ?>
@@ -63,7 +63,7 @@
                                             <?php if (
                                                 isset($exp["location"])
                                             ): ?>
-                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                <p class="text-xs text-gray-500 dark:text-muted mt-1">
                                                     <?= htmlspecialchars(
                                                         $exp["location"],
                                                     ) ?>
@@ -79,7 +79,7 @@
                                                 $exp["description"]
                                                 as $desc
                                             ): ?>
-                                                <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                                                <li class="flex items-start gap-3 text-gray-600 dark:text-muted">
                                                     <span class="material-symbols-outlined text-primary mt-0.5" style="font-size: 20px;">check_circle</span>
                                                     <span><?= htmlspecialchars(
                                                         $desc,

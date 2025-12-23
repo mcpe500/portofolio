@@ -19,8 +19,7 @@
         <!-- Projects Grid -->
         <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 md:gap-8" aria-label="Project showcase">
             <?php foreach ($config["projects"] as $index => $project): ?>
-                <article class="group flex flex-col rounded-xl bg-white dark:bg-slate-800/50
-                                border border-gray-200 dark:border-slate-800
+                <article class="group flex flex-col rounded-xl bg-white dark:bg-surface border border-gray-200 dark:border-border
                                 shadow-sm hover:shadow-2xl hover:border-primary/30
                                 dark:hover:border-primary/30 transition-all duration-300
                                 overflow-hidden opacity-0 translate-y-4 animate-fade-in-up"
@@ -52,7 +51,7 @@
                         </div>
 
                         <!-- Description -->
-                        <p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-relaxed flex-grow">
+                        <p class="text-gray-600 dark:text-muted text-sm font-normal leading-relaxed flex-grow">
                             <?= htmlspecialchars($project["description"]) ?>
                         </p>
 
