@@ -416,6 +416,13 @@ return [
             "route" => "games/monopoly",
             "status" => "new",
         ],
+        "ular-tangga" => [
+            "title" => "Ular Tangga",
+            "description" => "Classic Snakes & Ladders. Race to 100 with friends!",
+            "icon" => "stadia_controller",
+            "route" => "games/ular-tangga",
+            "status" => "new",
+        ],
     ],
     "projects" => [
         [

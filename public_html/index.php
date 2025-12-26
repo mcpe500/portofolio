@@ -45,6 +45,7 @@ $routes = [
     "games" => "games.php",
     "games/uno" => "games/uno.php",
     "games/monopoly" => "games/monopoly.php",
+    "games/ular-tangga" => "games/ular-tangga.php",
     "tools" => "tools.php",
     "tools/mermaid" => "tools/mermaid.php",
     "tools/html" => "tools/html.php",

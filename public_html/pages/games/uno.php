@@ -36,7 +36,7 @@
                     </div>
                     
                     <!-- Join Room Dialog (hidden by default) -->
-                    <div id="join-dialog" class="hidden">
+                    <div id="join-dialog" class="hidden mt-4">
                         <label class="block text-sm font-medium text-muted mb-2">Room Code</label>
                         <div class="flex gap-2">
                             <input type="text" id="room-code-input" maxlength="6" placeholder="ABC123"
@@ -44,6 +44,19 @@
                             <button onclick="lobby.joinRoom()" class="px-6 py-3 bg-primary hover:opacity-90 text-white font-bold rounded-lg transition-all">
                                 Join
                             </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Room History -->
+                    <div id="room-history-section" class="hidden mt-6 pt-6 border-t border-border">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-medium text-muted">Recent Rooms</h3>
+                            <button onclick="roomHistory.clear()" class="text-xs text-gray-500 hover:text-red-400 transition-colors">
+                                Clear
+                            </button>
+                        </div>
+                        <div id="room-history-list" class="space-y-2">
+                            <!-- Room history items will be rendered here -->
                         </div>
                     </div>
                 </div>
@@ -396,6 +409,64 @@ const connectionManager = {
     }
 };
 
+// ============== ROOM HISTORY MANAGER ==============
+const roomHistory = {
+    key: 'uno_room_history',
+    nameKey: 'uno_player_name',
+    maxItems: 5,
+    
+    get() {
+        try {
+            return JSON.parse(localStorage.getItem(this.key)) || [];
+        } catch { return []; }
+    },
+    
+    add(code, isHost = false) {
+        const history = this.get().filter(r => r.code !== code);
+        history.unshift({ code, isHost, timestamp: Date.now() });
+        if (history.length > this.maxItems) history.pop();
+        localStorage.setItem(this.key, JSON.stringify(history));
+        this.render();
+    },
+    
+    clear() {
+        localStorage.removeItem(this.key);
+        this.render();
+        showToast('History cleared', 'info');
+    },
+    
+    getName() {
+        return localStorage.getItem(this.nameKey) || '';
+    },
+    
+    saveName(name) {
+        if (name) localStorage.setItem(this.nameKey, name);
+    },
+    
+    render() {
+        const section = document.getElementById('room-history-section');
+        const list = document.getElementById('room-history-list');
+        const history = this.get();
+        
+        if (history.length === 0) {
+            section.classList.add('hidden');
+            return;
+        }
+        
+        section.classList.remove('hidden');
+        list.innerHTML = history.map(room => `
+            <button onclick="lobby.quickJoin('${room.code}')" 
+                class="w-full flex items-center justify-between px-4 py-3 bg-bg hover:bg-white/5 border border-border rounded-lg transition-all group">
+                <div class="flex items-center gap-3">
+                    <span class="font-mono text-primary font-bold">${room.code}</span>
+                    ${room.isHost ? '<span class="text-xs bg-yellow-500/20 text-yellow-500 px-2 py-0.5 rounded">Host</span>' : ''}
+                </div>
+                <span class="material-symbols-outlined text-muted group-hover:text-white transition-colors">arrow_forward</span>
+            </button>
+        `).join('');
+    }
+};
+
 // ============== LOBBY MANAGER ==============
 const lobby = {
     peer: null,
@@ -409,13 +480,28 @@ const lobby = {
     savedRoomCode: '',
     
     init() {
-        // Initialize on name input
+        // Load cached name
+        const cachedName = roomHistory.getName();
+        if (cachedName) {
+            document.getElementById('player-name').value = cachedName;
+        }
+        
+        // Render room history
+        roomHistory.render();
+        
+        // Event listeners
         document.getElementById('player-name').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.createRoom();
         });
         document.getElementById('room-code-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.joinRoom();
         });
+    },
+    
+    quickJoin(code) {
+        document.getElementById('room-code-input').value = code;
+        document.getElementById('join-dialog').classList.remove('hidden');
+        this.joinRoom();
     },
     
     getPlayerName() {
@@ -459,6 +545,10 @@ const lobby = {
                     name: this.playerName,
                     isHost: true
                 }];
+                
+                // Save name and add to history
+                roomHistory.saveName(this.playerName);
+                roomHistory.add(this.roomCode, true);
                 
                 this.hideStatus();
                 this.showRoomScreen();
@@ -588,6 +678,11 @@ const lobby = {
             this.hideStatus();
             connectionManager.resetReconnect();
             connectionManager.startHeartbeat(conn);
+            
+            // Save name and add to history
+            roomHistory.saveName(this.playerName);
+            roomHistory.add(this.roomCode, false);
+            
             showToast('Joined room!', 'success');
         });
         
@@ -1408,7 +1503,7 @@ const game = {
         const innerColor = card.color === 'black' ? 'color: white; text-shadow: 0 0 5px black;' : `color: ${bgColor};`;
         
         return `
-            <div class="w-20 h-28 rounded-xl shadow-lg flex items-center justify-center relative ${clickable ? 'cursor-pointer hover:scale-110 hover:-translate-y-2 transition-all' : ''}"
+            <div class="w-20 h-28 rounded-xl shadow-lg flex items-center justify-center relative ${clickable ? 'card-playable' : ''}"
                 style="background-color: ${bgColor};"
                 ${clickable ? `onclick="game.playCard(${index})"` : ''}>
                 <div class="w-[80%] h-[85%] rounded-[50%_10%] flex items-center justify-center text-2xl font-black transform -rotate-12"
@@ -1491,12 +1586,94 @@ document.addEventListener('DOMContentLoaded', () => {
     lobby.init();
 });
 
-// Add spin animation
+// Add enhanced styles
 const style = document.createElement('style');
 style.textContent = `
+    /* Animations */
     @keyframes spin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
     @keyframes fade-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slide-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 5px currentColor; } 50% { box-shadow: 0 0 20px currentColor, 0 0 30px currentColor; } }
+    @keyframes card-play { 0% { transform: scale(1); } 50% { transform: scale(1.1) rotate(5deg); } 100% { transform: scale(0.8) translateY(-100px); opacity: 0; } }
+    
     .animate-fade-in { animation: fade-in 0.3s ease-out; }
+    .animate-slide-up { animation: slide-up 0.4s ease-out; }
+    
+    /* Card hover effects */
+    .card-playable { cursor: pointer; transition: all 0.2s ease; }
+    .card-playable:hover { transform: translateY(-16px) scale(1.08); box-shadow: 0 12px 24px rgba(0,0,0,0.4); z-index: 10; }
+    
+    /* Turn indicator pulse */
+    #turn-indicator { animation: pulse-glow 1.5s ease-in-out infinite; }
+    
+    /* Color indicator glow */
+    #color-indicator { transition: all 0.3s ease; box-shadow: 0 0 20px currentColor; }
+    
+    /* Modal glassmorphism */
+    #color-modal > div, #challenge-modal > div, #gameover-modal > div, #rules-modal > div {
+        background: rgba(30, 30, 40, 0.95);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* Toast improvements */
+    #toast-container > div {
+        backdrop-filter: blur(8px);
+        animation: slide-up 0.3s ease-out;
+    }
+    
+    /* Mobile responsive cards */
+    @media (max-width: 768px) {
+        #human-hand { 
+            overflow-x: auto; 
+            flex-wrap: nowrap; 
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+        #human-hand > div {
+            flex-shrink: 0;
+            scroll-snap-align: center;
+            margin-left: -12px !important;
+        }
+        #human-hand > div:first-child { margin-left: 0 !important; }
+        #human-area { max-width: 100vw; padding: 0 8px; }
+        
+        /* Smaller cards on mobile */
+        #human-hand .w-20 { width: 3.5rem; height: 5rem; font-size: 0.75rem; }
+        #human-hand .text-2xl { font-size: 1rem; }
+        
+        /* Compact deck and discard on mobile */
+        #deck-pile, #discard-pile > div { width: 3.5rem; height: 5rem; }
+        #center-area { gap: 1rem; }
+        
+        /* Smaller opponent cards */
+        #opponents-container .w-12 { width: 2.5rem; height: 2.5rem; }
+        #opponents-container .w-3 { width: 0.5rem; height: 0.75rem; }
+    }
+    
+    /* Game board gradient background */
+    #game-board::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+    }
+    
+    /* UNO button enhanced */
+    #btn-uno {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+    }
+    #btn-uno:hover { box-shadow: 0 6px 30px rgba(239, 68, 68, 0.6); }
+    
+    /* Lobby card entrance */
+    #lobby-screen > div { animation: slide-up 0.5s ease-out; }
+    
+    /* Room history item hover */
+    #room-history-list button:hover { border-color: rgba(99, 102, 241, 0.5); }
 `;
 document.head.appendChild(style);
 </script>
