@@ -400,6 +400,15 @@ return [
             "status" => "stable",
         ],
     ],
+    "games" => [
+        "uno" => [
+            "title" => "UNO Multiplayer",
+            "description" => "Classic UNO card game. Create a room and play with friends online!",
+            "icon" => "playing_cards",
+            "route" => "games/uno",
+            "status" => "new",
+        ],
+    ],
     "projects" => [
         [
             "title" => "Rupavo",
