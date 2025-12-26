@@ -292,6 +292,110 @@ function showToast(msg, type = 'info') {
     setTimeout(() => toast.remove(), 3000);
 }
 
+// ============== CONNECTION MANAGER ==============
+const connectionManager = {
+    heartbeatInterval: null,
+    heartbeatTimeout: null,
+    reconnectAttempts: 0,
+    maxReconnectAttempts: 5,
+    reconnectDelay: 1000,
+    lastPong: Date.now(),
+    isConnected: false,
+    pendingMessages: [],
+    
+    // Start heartbeat for a connection
+    startHeartbeat(conn, isHost = false) {
+        this.stopHeartbeat();
+        this.isConnected = true;
+        this.reconnectAttempts = 0;
+        this.updateConnectionStatus('connected');
+        
+        this.heartbeatInterval = setInterval(() => {
+            if (conn && conn.open) {
+                conn.send({ type: 'ping', timestamp: Date.now() });
+                
+                // Check if we got a pong recently
+                this.heartbeatTimeout = setTimeout(() => {
+                    if (Date.now() - this.lastPong > 10000) {
+                        console.warn('Connection seems dead, no pong received');
+                        this.updateConnectionStatus('unstable');
+                    }
+                }, 5000);
+            }
+        }, 3000);
+    },
+    
+    // Handle pong response
+    handlePong() {
+        this.lastPong = Date.now();
+        if (this.heartbeatTimeout) {
+            clearTimeout(this.heartbeatTimeout);
+        }
+        this.updateConnectionStatus('connected');
+    },
+    
+    // Stop heartbeat
+    stopHeartbeat() {
+        if (this.heartbeatInterval) {
+            clearInterval(this.heartbeatInterval);
+            this.heartbeatInterval = null;
+        }
+        if (this.heartbeatTimeout) {
+            clearTimeout(this.heartbeatTimeout);
+            this.heartbeatTimeout = null;
+        }
+    },
+    
+    // Update connection status UI
+    updateConnectionStatus(status) {
+        let indicator = document.getElementById('connection-status');
+        if (!indicator) {
+            indicator = document.createElement('div');
+            indicator.id = 'connection-status';
+            indicator.className = 'fixed bottom-4 right-4 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-2 z-50';
+            document.body.appendChild(indicator);
+        }
+        
+        const statuses = {
+            connected: { color: 'bg-green-500/20 text-green-400', icon: '●', text: 'Connected' },
+            connecting: { color: 'bg-yellow-500/20 text-yellow-400', icon: '◐', text: 'Connecting...' },
+            unstable: { color: 'bg-orange-500/20 text-orange-400', icon: '◐', text: 'Unstable' },
+            disconnected: { color: 'bg-red-500/20 text-red-400', icon: '○', text: 'Disconnected' },
+            reconnecting: { color: 'bg-blue-500/20 text-blue-400', icon: '↻', text: 'Reconnecting...' }
+        };
+        
+        const s = statuses[status] || statuses.disconnected;
+        indicator.className = `fixed bottom-4 right-4 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-2 z-50 ${s.color}`;
+        indicator.innerHTML = `<span class="${status === 'reconnecting' ? 'animate-spin' : ''}">${s.icon}</span> ${s.text}`;
+        
+        this.isConnected = (status === 'connected');
+    },
+    
+    // Queue message if disconnected
+    queueMessage(data) {
+        this.pendingMessages.push(data);
+    },
+    
+    // Send queued messages
+    flushQueue(conn) {
+        while (this.pendingMessages.length > 0 && conn && conn.open) {
+            const msg = this.pendingMessages.shift();
+            conn.send(msg);
+        }
+    },
+    
+    // Get reconnect delay with exponential backoff
+    getReconnectDelay() {
+        return Math.min(this.reconnectDelay * Math.pow(2, this.reconnectAttempts), 30000);
+    },
+    
+    // Reset on successful connect
+    resetReconnect() {
+        this.reconnectAttempts = 0;
+        this.reconnectDelay = 1000;
+    }
+};
+
 // ============== LOBBY MANAGER ==============
 const lobby = {
     peer: null,
@@ -301,6 +405,8 @@ const lobby = {
     roomCode: '',
     playerName: '',
     players: [], // [{id, name, isHost}]
+    reconnecting: false,
+    savedRoomCode: '',
     
     init() {
         // Initialize on name input
@@ -341,6 +447,7 @@ const lobby = {
         
         this.showStatus('Creating room...');
         this.isHost = true;
+        connectionManager.updateConnectionStatus('connecting');
         
         try {
             this.peer = new Peer();
@@ -385,72 +492,114 @@ const lobby = {
             return;
         }
         
+        this.savedRoomCode = code;
         this.showStatus('Joining room...');
         this.isHost = false;
+        connectionManager.updateConnectionStatus('connecting');
         
         try {
             this.peer = new Peer();
             
             this.peer.on('open', (myId) => {
-                // Try to connect to host - we need to find the host's full peer ID
-                // Since we only have a short code, we'll try a pattern
-                // PeerJS generates IDs, we'll use the code as a prefix search
-                
-                // For simplicity, we'll ask hosts to share their FULL peer ID
-                // But we'll also try common patterns
                 this.tryConnect(code, myId);
             });
             
             this.peer.on('error', (err) => {
                 console.error('Peer error:', err);
                 if (err.type === 'peer-unavailable') {
-                    showToast('Room not found. Check the code.', 'error');
+                    this.handleConnectionFailure('Room not found. Check the code.');
                 } else {
-                    showToast('Connection error. Please try again.', 'error');
+                    this.handleConnectionFailure('Connection error.');
                 }
-                this.hideStatus();
+            });
+            
+            this.peer.on('disconnected', () => {
+                if (!this.reconnecting) {
+                    this.attemptReconnect();
+                }
             });
             
         } catch (err) {
             console.error(err);
-            showToast('Failed to join room', 'error');
-            this.hideStatus();
+            this.handleConnectionFailure('Failed to join room');
         }
     },
     
-    tryConnect(code, myId) {
-        // Try connecting with the code as peer ID prefix
-        // PeerJS peer IDs are random, so we need to establish a meeting point
-        // Solution: Use a predictable peer ID for hosts
+    handleConnectionFailure(msg) {
+        if (connectionManager.reconnectAttempts < connectionManager.maxReconnectAttempts) {
+            this.attemptReconnect();
+        } else {
+            showToast(msg, 'error');
+            connectionManager.updateConnectionStatus('disconnected');
+            this.hideStatus();
+            connectionManager.reconnectAttempts = 0;
+        }
+    },
+    
+    attemptReconnect() {
+        if (this.reconnecting) return;
         
-        // We'll modify createRoom to use a predictable ID
+        this.reconnecting = true;
+        connectionManager.reconnectAttempts++;
+        connectionManager.updateConnectionStatus('reconnecting');
+        
+        const delay = connectionManager.getReconnectDelay();
+        showToast(`Reconnecting... (${connectionManager.reconnectAttempts}/${connectionManager.maxReconnectAttempts})`, 'warning');
+        this.showStatus(`Reconnecting in ${Math.round(delay/1000)}s...`);
+        
+        setTimeout(() => {
+            this.reconnecting = false;
+            if (this.isHost) {
+                // Host can't reconnect, just show error
+                showToast('Connection lost. Please create a new room.', 'error');
+                this.returnToLobby();
+            } else if (this.savedRoomCode) {
+                // Try to rejoin
+                if (this.peer) this.peer.destroy();
+                this.joinRoom();
+            }
+        }, delay);
+    },
+    
+    tryConnect(code, myId, retryCount = 0) {
         const hostPeerId = 'uno-room-' + code.toLowerCase();
         
         const conn = this.peer.connect(hostPeerId, {
-            metadata: { name: this.playerName }
+            metadata: { name: this.playerName },
+            reliable: true
         });
         
+        const connectTimeout = setTimeout(() => {
+            if (!this.hostConnection) {
+                if (retryCount < 2) {
+                    showToast(`Retrying connection... (${retryCount + 2}/3)`, 'info');
+                    this.tryConnect(code, myId, retryCount + 1);
+                } else {
+                    this.handleConnectionFailure('Room not found or host offline');
+                }
+            }
+        }, 5000);
+        
         conn.on('open', () => {
+            clearTimeout(connectTimeout);
             this.hostConnection = conn;
             this.roomCode = code;
             this.setupGuestConnection(conn);
             this.hideStatus();
+            connectionManager.resetReconnect();
+            connectionManager.startHeartbeat(conn);
             showToast('Joined room!', 'success');
         });
         
         conn.on('error', (err) => {
+            clearTimeout(connectTimeout);
             console.error('Connection error:', err);
-            showToast('Failed to connect to room', 'error');
-            this.hideStatus();
-        });
-        
-        // Timeout for connection attempt
-        setTimeout(() => {
-            if (!this.hostConnection) {
-                showToast('Room not found or host offline', 'error');
-                this.hideStatus();
+            if (retryCount < 2) {
+                setTimeout(() => this.tryConnect(code, myId, retryCount + 1), 1000);
+            } else {
+                this.handleConnectionFailure('Failed to connect to room');
             }
-        }, 10000);
+        });
     },
     
     handleNewConnection(conn) {
@@ -482,22 +631,54 @@ const lobby = {
     },
     
     setupGuestConnection(conn) {
-        conn.on('data', (data) => this.handleGuestMessage(data));
+        conn.on('data', (data) => this.handleGuestMessage(data, conn));
         conn.on('close', () => {
-            showToast('Disconnected from room', 'error');
-            this.returnToLobby();
+            connectionManager.updateConnectionStatus('disconnected');
+            connectionManager.stopHeartbeat();
+            if (!this.reconnecting && this.savedRoomCode) {
+                showToast('Connection lost. Attempting to reconnect...', 'warning');
+                this.attemptReconnect();
+            } else {
+                showToast('Disconnected from room', 'error');
+                this.returnToLobby();
+            }
         });
     },
     
     handleHostMessage(conn, data) {
+        // Handle ping/pong for connection health
+        if (data.type === 'ping') {
+            conn.send({ type: 'pong', timestamp: data.timestamp });
+            return;
+        }
+        if (data.type === 'pong') {
+            connectionManager.handlePong();
+            return;
+        }
+        
         switch(data.type) {
             case 'player_action':
+                console.log('[Host] Received action from', conn.peer, ':', data.action.type);
                 game.handleRemoteAction(conn.peer, data.action);
                 break;
         }
     },
     
-    handleGuestMessage(data) {
+    handleGuestMessage(data, conn) {
+        // Handle ping/pong for connection health
+        if (data.type === 'ping') {
+            if (conn && conn.open) {
+                conn.send({ type: 'pong', timestamp: data.timestamp });
+            }
+            return;
+        }
+        if (data.type === 'pong') {
+            connectionManager.handlePong();
+            return;
+        }
+        
+        console.log('[Guest] Received message:', data.type);
+        
         switch(data.type) {
             case 'player_list':
                 this.players = data.players;
@@ -505,9 +686,11 @@ const lobby = {
                 this.showRoomScreen();
                 break;
             case 'game_start':
+                console.log('[Guest] Game starting with state');
                 game.startAsGuest(data.gameState);
                 break;
             case 'game_state':
+                console.log('[Guest] Received game state, current player:', data.gameState.currentPlayer);
                 game.updateState(data.gameState);
                 break;
             case 'game_over':
@@ -538,14 +721,36 @@ const lobby = {
     },
     
     broadcast(data) {
+        console.log('[Host] Broadcasting:', data.type);
+        let sentCount = 0;
         this.connections.forEach(conn => {
-            if (conn.open) conn.send(data);
+            if (conn && conn.open) {
+                try {
+                    conn.send(data);
+                    sentCount++;
+                } catch (e) {
+                    console.error('[Host] Failed to send to', conn.peer, e);
+                }
+            }
         });
+        console.log('[Host] Sent to', sentCount, 'connections');
     },
     
     sendToHost(data) {
-        if (this.hostConnection?.open) {
-            this.hostConnection.send(data);
+        console.log('[Guest] Sending to host:', data.type, data.action?.type);
+        if (this.hostConnection && this.hostConnection.open) {
+            try {
+                this.hostConnection.send(data);
+            } catch (e) {
+                console.error('[Guest] Failed to send to host:', e);
+                showToast('Connection error. Please wait...', 'warning');
+                // Try to reconnect
+                this.attemptReconnect();
+            }
+        } else {
+            console.error('[Guest] Host connection not open!');
+            showToast('Lost connection to host. Reconnecting...', 'error');
+            this.attemptReconnect();
         }
     },
     
@@ -836,7 +1041,6 @@ const game = {
     playCard(cardIndex) {
         if (!this.isMyTurn()) return;
         
-        const myIndex = this.getMyPlayerIndex();
         const myHand = this.state.hands[this.myPlayerId];
         const card = myHand[cardIndex];
         
@@ -845,7 +1049,7 @@ const game = {
             return;
         }
         
-        // Check Wild+4 legality for human
+        // Check Wild+4 legality
         if (card.value === 'wild4') {
             const hasMatchingColor = myHand.some((c, i) => i !== cardIndex && c.color === this.state.currentColor);
             if (hasMatchingColor) {
@@ -854,32 +1058,69 @@ const game = {
             }
         }
         
-        // UNO penalty check
-        if (myHand.length === 2 && !this.calledUno) {
-            showToast("Forgot to say UNO! Draw 2 cards.", 'warning');
-            this.drawCardsForPlayer(this.myPlayerId, 2);
-        }
-        
-        // Remove from hand and add to discard
-        myHand.splice(cardIndex, 1);
-        this.state.discard.push(card);
-        this.calledUno = false;
-        
-        // Handle wilds
+        // Handle wilds - need color picker first
         if (card.color === 'black') {
             this.pendingColorPick = true;
             this.pendingWildCard = card;
+            this.pendingCardIndex = cardIndex;
             document.getElementById('color-modal').classList.remove('hidden');
             document.getElementById('color-modal').style.display = 'flex';
-            this.render();
             return;
         }
         
-        // Normal card
-        this.state.currentColor = card.color;
-        this.applyCardEffect(card);
+        // For guests: send action to host
+        if (!lobby.isHost) {
+            lobby.sendToHost({ 
+                type: 'player_action', 
+                action: { 
+                    type: 'play_card', 
+                    cardIndex: cardIndex,
+                    cardId: card.id
+                } 
+            });
+            return;
+        }
         
-        if (this.checkWin()) return;
+        // Host processes locally
+        this.processPlayCard(this.myPlayerId, cardIndex, card);
+    },
+    
+    // Host-only: process card play
+    processPlayCard(playerId, cardIndex, card, chosenColor = null) {
+        const hand = this.state.hands[playerId];
+        const playerIndex = this.state.players.findIndex(p => p.id === playerId);
+        
+        // UNO penalty check
+        if (hand.length === 2 && playerId === this.myPlayerId && !this.calledUno) {
+            showToast("Forgot to say UNO! Draw 2 cards.", 'warning');
+            this.drawCardsForPlayer(playerId, 2);
+        }
+        
+        // Remove from hand and add to discard
+        hand.splice(cardIndex, 1);
+        this.state.discard.push(card);
+        
+        if (chosenColor) {
+            this.state.currentColor = chosenColor;
+            if (card.value === 'wild4') {
+                const nextIndex = this.getNextPlayerIndex();
+                const nextPlayer = this.state.players[nextIndex];
+                this.drawCardsForPlayer(nextPlayer.id, 4);
+                this.state.currentPlayer = nextIndex;
+            }
+        } else {
+            this.state.currentColor = card.color;
+            this.applyCardEffect(card);
+        }
+        
+        // Check win
+        if (hand.length === 0) {
+            this.state.phase = 'gameOver';
+            const winner = this.state.players[playerIndex];
+            lobby.broadcast({ type: 'game_over', winner: winner });
+            this.showGameOver(winner);
+            return;
+        }
         
         this.advanceTurn();
         this.syncState();
@@ -889,26 +1130,26 @@ const game = {
         document.getElementById('color-modal').classList.add('hidden');
         document.getElementById('color-modal').style.display = 'none';
         
-        this.state.currentColor = color;
         this.pendingColorPick = false;
-        
         const card = this.pendingWildCard;
+        const cardIndex = this.pendingCardIndex;
         
-        if (card.value === 'wild4') {
-            // Apply +4 effect
-            const nextIndex = this.getNextPlayerIndex();
-            const nextPlayer = this.state.players[nextIndex];
-            
-            // For simplicity, we'll skip the challenge for now and just apply the effect
-            this.drawCardsForPlayer(nextPlayer.id, 4);
-            showToast(`${nextPlayer.name} draws 4 cards!`, 'info');
-            this.state.currentPlayer = nextIndex; // Move to victim
+        // For guests: send action to host
+        if (!lobby.isHost) {
+            lobby.sendToHost({ 
+                type: 'player_action', 
+                action: { 
+                    type: 'play_card', 
+                    cardIndex: cardIndex,
+                    cardId: card.id,
+                    chosenColor: color
+                } 
+            });
+            return;
         }
         
-        if (this.checkWin()) return;
-        
-        this.advanceTurn();
-        this.syncState();
+        // Host processes locally
+        this.processPlayCard(this.myPlayerId, cardIndex, card, color);
     },
     
     applyCardEffect(card, isFirstCard = false) {
@@ -958,6 +1199,17 @@ const game = {
         if (!this.isMyTurn()) return;
         if (this.pendingColorPick || this.pendingChallenge) return;
         
+        // For guests: send action to host
+        if (!lobby.isHost) {
+            lobby.sendToHost({ 
+                type: 'player_action', 
+                action: { type: 'draw' } 
+            });
+            showToast('You drew a card', 'info');
+            return;
+        }
+        
+        // Host processes locally
         this.drawCardsForPlayer(this.myPlayerId, 1);
         showToast('You drew a card', 'info');
         
@@ -1051,54 +1303,36 @@ const game = {
         // Host processes actions from guests
         if (!lobby.isHost) return;
         
+        const playerIndex = this.state.players.findIndex(p => p.id === peerId);
+        
+        // Validate it's this player's turn
+        if (playerIndex !== this.state.currentPlayer) {
+            console.log('Not this player\'s turn:', peerId);
+            return;
+        }
+        
         switch (action.type) {
             case 'play_card':
-                // Find player and play their card
-                const playerIndex = this.state.players.findIndex(p => p.id === peerId);
-                if (playerIndex === this.state.currentPlayer) {
-                    const hand = this.state.hands[peerId];
-                    const card = hand[action.cardIndex];
-                    
-                    // Validate and play
-                    hand.splice(action.cardIndex, 1);
-                    this.state.discard.push(card);
-                    
-                    if (card.color === 'black') {
-                        this.state.currentColor = action.chosenColor || 'red';
-                        if (card.value === 'wild4') {
-                            const nextIdx = this.getNextPlayerIndex();
-                            this.drawCardsForPlayer(this.state.players[nextIdx].id, 4);
-                            this.state.currentPlayer = nextIdx;
-                        }
-                    } else {
-                        this.state.currentColor = card.color;
-                        this.applyCardEffect(card);
-                    }
-                    
-                    // Check win
-                    if (hand.length === 0) {
-                        this.state.phase = 'gameOver';
-                        lobby.broadcast({ type: 'game_over', winner: this.state.players[playerIndex] });
-                        this.showGameOver(this.state.players[playerIndex]);
-                        return;
-                    }
-                    
-                    this.advanceTurn();
-                    this.syncState();
+                const hand = this.state.hands[peerId];
+                const card = hand[action.cardIndex];
+                
+                if (!card) {
+                    console.log('Invalid card index:', action.cardIndex);
+                    return;
                 }
+                
+                // Use processPlayCard for consistency
+                this.processPlayCard(peerId, action.cardIndex, card, action.chosenColor);
                 break;
                 
             case 'draw':
-                const pIdx = this.state.players.findIndex(p => p.id === peerId);
-                if (pIdx === this.state.currentPlayer) {
-                    this.drawCardsForPlayer(peerId, 1);
-                    this.advanceTurn();
-                    this.syncState();
-                }
+                this.drawCardsForPlayer(peerId, 1);
+                this.advanceTurn();
+                this.syncState();
                 break;
                 
             case 'uno':
-                showToast(`${this.state.players.find(p => p.id === peerId)?.name}: UNO!`, 'info');
+                showToast(`${this.state.players[playerIndex]?.name}: UNO!`, 'info');
                 break;
         }
     },
