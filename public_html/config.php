@@ -408,6 +408,13 @@ return [
             "route" => "games/uno",
             "status" => "new",
         ],
+        "monopoly" => [
+            "title" => "Monopoly Multiplayer",
+            "description" => "Classic board game. Buy properties, collect rent, and bankrupt your friends!",
+            "icon" => "casino",
+            "route" => "games/monopoly",
+            "status" => "new",
+        ],
     ],
     "projects" => [
         [
