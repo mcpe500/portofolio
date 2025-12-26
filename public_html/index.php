@@ -92,7 +92,15 @@ if (!isset($routes[$current_page])) {
     $current_page = "404";
     $page_file = "pages/404.php";
 } else {
-    $page_file = "pages/" . $routes[$current_page];
+    // Check if games are disabled
+    $games_enabled = $config["site"]["games_enabled"] ?? true;
+    if (!$games_enabled && (str_starts_with($current_page, "games"))) {
+        http_response_code(404);
+        $current_page = "404";
+        $page_file = "pages/404.php";
+    } else {
+        $page_file = "pages/" . $routes[$current_page];
+    }
 }
 
 // Page title

@@ -13,6 +13,7 @@ return [
             "Computer Science Student & Aspiring Software Developer",
         "bio" =>
             "As a computer science student at Institut Sains dan Teknologi Terpadu Surabaya, I have developed a deep interest in programming and its potential to shape the future. My passion lies in developing innovative solutions that solve real-world problems and create meaningful change.",
+        "games_enabled" => true, // Set to false to disable entire games section
     ],
 
     "navigation" => [

@@ -19,6 +19,11 @@
         <div class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
             <?php foreach ($config["navigation"] ?? [] as $item): ?>
                 <?php
+                // Skip Games link if games are disabled
+                if (($item["label"] === "Games") && !($config["site"]["games_enabled"] ?? true)) {
+                    continue;
+                }
+                
                 $path = parse_url($item["url"] ?? "#", PHP_URL_PATH);
                 $is_active = trim($path, "/") === ($current_page ?? "");
                 $type = $item["type"] ?? "link";
@@ -58,6 +63,12 @@
     <div id="mobile-menu" class="hidden md:hidden border-b border-border bg-bg p-4 absolute w-full">
         <div class="flex flex-col gap-4 text-sm font-medium text-muted">
             <?php foreach ($config["navigation"] ?? [] as $item): ?>
+                <?php 
+                // Skip Games link if games are disabled
+                if (($item["label"] === "Games") && !($config["site"]["games_enabled"] ?? true)) {
+                    continue;
+                }
+                ?>
                 <a href="<?= htmlspecialchars($item["url"]) ?>" 
                    class="text-left hover:text-white transition-colors">
                     <?= htmlspecialchars($item["label"]) ?>
