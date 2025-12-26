@@ -19,6 +19,7 @@ return [
         ["label" => "Experience", "url" => "/experience", "type" => "link"],
         ["label" => "Projects", "url" => "/projects", "type" => "link"],
         ["label" => "Tools", "url" => "/tools", "type" => "link"],
+        ["label" => "Games", "url" => "/games", "type" => "link"],
         ["label" => "Skills", "url" => "/skills", "type" => "link"],
         ["label" => "Education", "url" => "/education", "type" => "link"],
         ["label" => "About", "url" => "/about", "type" => "link"],

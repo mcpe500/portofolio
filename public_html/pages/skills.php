@@ -3,22 +3,127 @@
  * Skills & Certifications Page
  */
 ?>
-<main class="flex flex-1 items-center justify-center py-8 md:py-12">
-    <div class="w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+<main class="flex-grow pt-16">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         <!-- Section Header -->
-        <header class="w-full mb-8 md:mb-12">
-            <h1 class="text-4xl font-black tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-                Skills & Certifications
+        <header class="w-full mb-12 text-center">
+            <span class="text-blue-600 font-bold text-sm uppercase tracking-wider">My Arsenal</span>
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl mt-2">
+                Technical Proficiency
             </h1>
-            <p class="mt-3 text-lg text-gray-600 dark:text-gray-400">
-                Technical expertise validated through industry-recognized certifications and hands-on experience.
+            <p class="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                A balanced mix of foundational engineering and modern innovation.
             </p>
         </header>
 
-        <!-- Technical Skills -->
+        <!-- AI & LLM Section (Highlighted) -->
+        <section class="mb-12">
+            <div class="glass-card p-8 dark:bg-gray-900/50 border-l-4 border-blue-500">
+                <div class="grid lg:grid-cols-3 gap-8 items-center">
+                    <div class="lg:col-span-2">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fas fa-robot text-3xl text-purple-500"></i>
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Artificial Intelligence & LLMs</h2>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">
+                            I actively integrate AI into my development workflow. From generating complex SQL queries and boilerplate code to debugging logic errors, I use LLMs to boost productivity significantly. I am also building tools that leverage these models for end-user functionality.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="ai-tag"><i class="fas fa-lightbulb"></i> Prompt Engineering</span>
+                            <span class="ai-tag"><i class="fas fa-plug"></i> LLM Integration</span>
+                            <span class="ai-tag"><i class="fas fa-code"></i> AI-Assisted Code Review</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="p-8 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-2xl">
+                            <h3 class="text-3xl font-bold text-gradient mb-2">AI-Augmented</h3>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">Developer Workflow</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Backend & Frontend Skills Grid -->
+        <section class="mb-12 grid lg:grid-cols-2 gap-8">
+            <!-- Backend -->
+            <div class="glass-card p-8 dark:bg-gray-900/50">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-server text-2xl text-blue-500"></i>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">Backend Development</h2>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 dark:text-gray-300">PHP (Native & OOP)</span>
+                            <span class="text-gray-500">90%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill" style="width: 90%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 dark:text-gray-300">PostgreSQL / MySQL</span>
+                            <span class="text-gray-500">85%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill" style="width: 85%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 dark:text-gray-300">REST API Design</span>
+                            <span class="text-gray-500">80%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill" style="width: 80%"></div></div>
+                    </div>
+                </div>
+                <div class="mt-6 flex flex-wrap gap-2">
+                    <span class="skill-badge">Apache</span>
+                    <span class="skill-badge">Linux</span>
+                    <span class="skill-badge">Git</span>
+                    <span class="skill-badge">Docker</span>
+                </div>
+            </div>
+
+            <!-- Frontend -->
+            <div class="glass-card p-8 dark:bg-gray-900/50">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-paint-brush text-2xl text-cyan-500"></i>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">Frontend & UI</h2>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 dark:text-gray-300">HTML5 / CSS3</span>
+                            <span class="text-gray-500">95%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill" style="width: 95%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 dark:text-gray-300">JavaScript (ES6+)</span>
+                            <span class="text-gray-500">75%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill" style="width: 75%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 dark:text-gray-300">React / Tailwind</span>
+                            <span class="text-gray-500">80%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill" style="width: 80%"></div></div>
+                    </div>
+                </div>
+                <div class="mt-6 flex flex-wrap gap-2">
+                    <span class="skill-badge">Responsive Design</span>
+                    <span class="skill-badge">AJAX</span>
+                    <span class="skill-badge">jQuery</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills from Config -->
         <section id="technical-skills" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Technical Skills</h2>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">All Technical Skills</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php foreach ($config["skills"] as $category => $skills): ?>
                     <div class="flex flex-col gap-4 rounded-xl bg-white dark:bg-surface

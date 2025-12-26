@@ -3,8 +3,8 @@
  * Experience Page - Professional Timeline
  */
 ?>
-<main class="flex flex-1 items-center justify-center py-8 md:py-12">
-    <div class="w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+<main class="flex flex-1 justify-center pt-24 md:pt-36 py-8 md:py-12">
+    <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Section Header -->
         <header class="w-full mb-8 md:mb-12">
